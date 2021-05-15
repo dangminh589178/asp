@@ -1,0 +1,58 @@
+@model LiteCommerce.Admin.Models.CustomerPaginationQueryResult
+
+@{ Layout = null;}
+
+<div class="text-left">
+  <p>Có tất cả <strong>@Model.RowCount</strong> khách hàng. Bạn đang ở trang <strong>@Model.Page</strong> trên tổng số <strong>@Model.PageCount</strong> trang.</p>
+</div>
+<table class="table table-hover table-bordered">
+  <thead>
+    <tr class="success">
+      <th>Tên khách hàng</th>
+      <th>Tên giao dịch</th>
+      <th>Địa chỉ</th>
+      <th>Quốc gia</th>
+      <th>Thành phố</th>
+      <th>Mã vùng</th>
+      <th class="text-right">
+        <a href="~/Customers/Add" class="btn btn-sm btn-info">
+          <i class="fa fa-plus"></i> Thêm mới
+        </a>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    @foreach (var item in Model.Data)
+    {
+<tr>
+  <td>@item.CustomerName</td>
+  <td>@item.ContactName</td>
+  <td>@item.Address</td>
+  <td>@item.Country</td>
+  <td>@item.City</td>
+  <td>@item.PostalCode</td>
+  <td class="text-right">
+    <a href="~/Customers/Edit/@item.CustomerID" class="btn btn-sm btn-success">
+      <i class="fa fa-edit"></i>
+    </a>
+    <a href="~/Customers/Delete/@item.CustomerID" class="btn btn-sm btn-danger">
+      <i class="fa fa-remove"></i>
+    </a>
+  </td>
+</tr>}
+  </tbody>
+</table>
+<div class="text-center">
+  <ul class="pagination">
+    @for (int page = 1; page <= Model.PageCount; page++)
+    {
+      if (page == Model.Page)
+      {
+<li class="active"><a href="javascript:;">@page</a></li> }
+        else
+        {
+<li><a href="javascript:;" onclick="getCustomers(@page)">@page</a></li>}
+      }
+  </ul>
+</div>
+

@@ -1,0 +1,79 @@
+@model LiteCommerce.DomainModels.Product
+@{
+  ViewBag.Title = "Quản lý danh mục hàng hóa";
+}
+
+<!--form tìm kiếm -->
+<div class="container-fluid">
+  <form id="formSearchInput">
+    <div class="row">
+      <div class="col-md-6">
+       
+          @Html.DropDownListFor(m => m.CategoryID, SelectListHelper.Categories(),"Select Category", new { @class = "form-control" })
+          @*          <select name="category" class="form-control">
+              <option value="0">-- Tất cả loại hàng --</option>
+              <option value="1">Beverages</option>
+              <option value="2">Condiments</option>
+            </select>*@
+     
+      </div>
+      <div class="col-md-6">
+       
+          @Html.DropDownListFor(m => m.SupplierID, SelectListHelper.Suppliers(), "Select Supplier", new {@class = "form-control "})
+          @*<select name="supplier" class="form-control">
+            <option value="0">-- Tất cả các nhà cung cấp --</option>
+            <option value="1">Exotic Liquid</option>
+            <option value="2">New Orleans Cajun Delights</option>
+          </select>*@
+        
+
+      </div>
+   
+    </div>
+    <div class="row" style="margin-top:5px;">
+      <div class="col-md-12">
+        <div class="input-group">
+          <input name="searchValue" type="text" class="form-control" placeholder="Nhập Thông Tin Cần Tìm ..." value="">
+          <div class="input-group-btn">
+            <button class="btn btn-primary" type="submit">
+              <i class="glyphicon glyphicon-search"></i> Tìm kiếm
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+<div id="listProducts" class="container-fluid">
+
+</div>
+
+<!--Ajax để hiện thị list, tìm kiếm và phân trang-->
+@section scripts{
+  <script>
+    function getProducts(page) {
+      var searchConditon = $("#formSearchInput").serializeArray();
+      searchConditon.push({ name: "page", value: page });
+      $.ajax({
+        url: "/Product/List",
+        type: "POST",
+        data: searchConditon,
+        success: function (data) {
+          $("#listProducts").empty();
+          $("#listProducts").html(data);
+        }
+      });
+    }
+
+    $(document).ready(function () {
+      getProducts(1);
+      $("#formSearchInput").submit(function (e) {
+        e.preventDefault(); /// khi an submit. thi trang khong reload. day la loi ich khi dung ajax
+
+        getProducts(1);
+      });
+    });
+  </script>
+}
+

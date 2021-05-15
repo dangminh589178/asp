@@ -1,0 +1,51 @@
+@model LiteCommerce.DomainModels.Supplier
+<form class="form-horizontal" method="post" action="~/Supplier/delete/@Model.SupplierID">
+  <div class="form-group">
+    @Html.HiddenFor(m => m.SupplierID)
+    <label class="control-label col-sm-2">Tên nhà cung cấp:</label>
+    <div class="col-sm-10">
+      <p class="form-control-static">@Model.SupplierName</p>
+    </div>
+
+    <label class="control-label col-sm-2">Tên giao dịch:</label>
+    <div class="col-sm-10">
+      <p class="form-control-static">@Model.ContactName</p>
+    </div>
+
+    <label class="control-label col-sm-2">Địa chỉ liên hệ:</label>
+    <div class="col-sm-10">
+      <p class="form-control-static">@Model.Address</p>
+    </div>
+
+    <label class="control-label col-sm-2">Quốc gia:</label>
+    <div class="col-sm-4">
+      <p class="form-control-static">@Model.Country</p>
+    </div>
+    <label class="control-label col-sm-2">Thành phố:</label>
+    <div class="col-sm-4">
+      <p class="form-control-static">@Model.City</p>
+    </div>
+
+    <label class="control-label col-sm-2">Mã bưu chính:</label>
+    <div class="col-sm-4">
+      <p class="form-control-static">@Model.PostalCode</p>
+    </div>
+    <label class="control-label col-sm-2">Điện thoại:</label>
+    <div class="col-sm-4">
+      <p class="form-control-static">@Model.Phone</p>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-offset-2 col-sm-10">
+      <p class="text-danger" style="font-size:18px">
+        Bạn có chắc chắn muốn xóa nhà cung cấp này khỏi hệ thống hay không?
+      </p>
+    </div>
+    <div class="col-lg-offset-2 col-sm-10">
+      <button class="btn btn-danger">Đồng ý xóa</button>
+      <a href="~/Supplier/Index" class="btn btn-warning">Bỏ qua</a>
+    </div>
+  </div>
+</form>
+

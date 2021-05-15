@@ -1,0 +1,26 @@
+@model LiteCommerce.DomainModels.Shipper
+
+<form method="post" action="~/Shippers/Save">
+  @Html.HiddenFor(m => m.ShipperID)
+  <div class="form-group">
+    <label for="exampleInputEmail1">Tên nhà vận chuyển:</label>
+    @Html.TextBoxFor(m => m.ShipperName, new { @class = "form-control", @autofocus = "autofocus" })
+  </div><div class="form-group">
+    <label for="exampleInputEmail1">Số điện thoại:</label>
+    @Html.TextBoxFor(m => m.Phone, new { @class = "form-control" })
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <button type="submit" class="btn btn-primary">Đồng ý</button>
+    </div>
+    <div class="col-md-6 text-right">
+      <button type="button" class="btn btn-warning" data-dismiss="modal">Bỏ Qua</button>
+    </div>
+  </div>
+</form>
+
+
+
+
+
+

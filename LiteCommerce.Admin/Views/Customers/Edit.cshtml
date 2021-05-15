@@ -1,0 +1,90 @@
+@model LiteCommerce.DomainModels.Customer
+@{
+
+}
+<div class="box box-primary">
+  <!-- form start -->
+  <form role="form" method="post" action="~/Customers/Save">
+    <div class="box-body">
+      @Html.HiddenFor(m => m.CustomerID , new {@class = "form-control"})
+      <div class="form-group">
+        <label for="exampleInputEmail1">Tên khách hàng</label>
+        <input name="CustomerName" type="text" class="form-control" id="CustomerName" value="@Model.CustomerName" autofocus>
+        @Html.ValidationMessageFor(m => m.CustomerName)
+      </div>
+      <div class="form-group">
+        <label for="exampleInputPassword1">Tên giao dịch</label>
+       @* <input name="ContactName" type="text" class="form-control" id="ContactName" placeholder="Tên giao dịch ...">*@
+        @Html.TextBoxFor(m => m.ContactName , new {@class= "form-control" })
+        @Html.ValidationMessageFor(m => m.ContactName)
+      </div>
+      <div class="form-group">
+        <label for="exampleInputPassword1">Địa chỉ liên hệ</label>
+        @*<input name="Address" type="text" class="form-control" id="Address" placeholder="Địa chỉ liên hệ ...">*@
+        @Html.TextBoxFor(m =>m.Address, new {@class = "form-control"})
+        @Html.ValidationMessageFor(m => m.Address)
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>Quốc gia</label>
+            @Html.DropDownListFor(m => m.Country, SelectListHelper.Countries(), new { @class = "form-control" })
+           @* <select class="form-control" name="Country" id="Country">
+            </select>*@
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>Thành phố</label>
+            @Html.DropDownListFor(m => m.City , SelectListHelper.Cities(), new {@class= "form-control"})
+            @*<select class="form-control" name="City" id="City">
+              <option>London</option>
+              <option>México D.F.</option>
+              <option>Luleå</option>
+              <option>Mannheim</option>
+              <option>Strasbourg</option>
+              <option>Madrid</option>
+            </select>*@
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="form-group">
+            <label for="exampleInputPassword1">Mã Vùng</label>
+            @* <input name="PostalCode" type="text" class="form-control" id="PostalCode" placeholder="Mã vùng ...">*@
+            @Html.TextBoxFor(m => m.PostalCode, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.PostalCode)
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <label for="exampleInputPassword1">Email</label>
+            @*<input name="Phone" type="text" class="form-control" id="Phone" placeholder="Số điện thoại ...">*@
+            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <label for="exampleInputPassword1">Password</label>
+            @*<input name="Phone" type="text" class="form-control" id="Phone" placeholder="Số điện thoại ...">*@
+            @Html.TextBoxFor(m => m.Password, new { @class = "form-control" })
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /.box-body -->
+
+    <div class="box-footer">
+      <div class="row">
+        <div class="col-md-6">
+          <button type="submit" class="btn btn-success"><i class="fa fa-save"></i> Lưu dữ liệu</button>
+        </div>
+        <div class="col-md-6 text-right">
+          <a href="~/Customers/Index" class="btn btn-warning">Bỏ qua</a>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+

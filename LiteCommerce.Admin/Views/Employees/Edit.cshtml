@@ -1,0 +1,144 @@
+@model LiteCommerce.DomainModels.Employee
+@{
+
+}
+<div class="box box-primary">
+  <!-- form start -->
+  <form role="form" method="post" action="~/Employees/Save">
+    <div class="box-body">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            @Html.HiddenFor(m => m.EmployeeID)
+            <label for="exampleInputEmail1">Họ</label>
+            @*<input name="LastName" type="email" class="form-control" id="LastName" placeholder="Nhập họ ..." autofocus>*@
+            @Html.TextBoxFor(m => m.FirstName, new {@class = "form-control", @autofocus = "autofocus"})
+            @Html.ValidationMessageFor(m => m.FirstName)
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="exampleInputPassword1">Tên</label>
+            @*<input name="FirstName" type="text" class="form-control" id="FirstName" placeholder="nhập tên ...">*@
+            @Html.TextBoxFor(m => m.LastName, new { @class = "form-control"})
+            @Html.ValidationMessageFor(m => m.LastName)
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="exampleInputPassword1">Ngày sinh</label>
+            <div class="input-group">
+              <div class="input-group-addon">
+                <i class="fa fa-calendar"></i>
+              </div>
+              @*<input type="date" class="form-control" data-inputmask="'alias': 'mm/dd/yyyy'" data-mask="">*@
+              @Html.TextBoxFor(m => m.BirthDate, new { @class = "form-control" })
+
+            </div>
+            @Html.ValidationMessageFor(m => m.BirthDate)
+          </div>
+        </div>
+        @*      <div class="col-md-6">
+      <div class="form-group">
+        <label class="form-label" for="customFile">Ảnh</label>
+        <img src="@Model.Photo" style="height:50px; width:50px; margin:10px;" id="previewImage"/>
+        <input type="file" class="form-control" name="ImageUpload" onchange="ShowImage(this, document.getElementById('previewImage'))"/>
+      </div>
+    </div>*@
+
+        <div class="col-md-6">
+          <div style="display:block;">
+            <label for="exampleInputFile">Photo</label>
+            <div class="input-group">
+              <div style="height:180px;width:220px;padding:0 50px">
+                <img id="pictureUpload" src="@Model.Photo" alt="avatar" style="height:180px;width:120px;" />
+              </div>
+            </div>
+          </div>
+          <div class="form-inline" style="margin:3px 0;">
+            <input type="text" name="Photo" id="Photo" class="form-control" style="display:inline-block; width:220px" value="@Model.Photo" />
+
+            <input type="file" name="FileUpload" id="FileUpload" accept="image/*" style="display:none" />
+            <input type="button" id="btnUpload" value="..." class="btn btn-primary" />
+            @Html.ValidationMessageFor(m => m.Photo)
+          </div>
+        </div>
+
+        @section Upload
+                        {
+          <script>
+            $(function () {
+              $('#btnUpload').click(function () {
+                $('#FileUpload').trigger('click');
+              });
+              // Bat su kien khi thay doi du lieu cua fileupload
+              $('#FileUpload').change(function () {
+                //Kiem tra trinh duyet co ho tro formdata hay khong
+                if (window.FormData !== undefined) {
+                  //Lay du lieu tren fileupload
+                  var fileUpload = $('#FileUpload').get(0);
+                  var files = fileUpload.files;
+                  //tao doi tuong form data
+                  var formData = new FormData();
+                  formData.append('file', files[0]);
+                  $.ajax({
+                    type: 'POST',
+                    url: '/Employees/ProcessUpload',
+                    contentType: false, // khong co header
+                    processData: false, //khong xu ly du lieu
+                    data: formData,
+                    success: function (urlImage) {
+                      $('#pictureUpload').attr('src', urlImage);
+                      $('#Photo').val(urlImage);
+                    },
+                    error: function (err) {
+                      alert('Co loi xay ra' + err.statusText);
+                    }
+                  });
+                }
+              })
+            });
+          </script>
+        }
+
+
+
+
+      </div>
+      <div class="form-group">
+        <label>Email</label>
+        @*<input name="Email" type="email" class="form-control" id="Email" placeholder="Email ...">*@
+        @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Email)
+      </div>
+      <div class="form-group">
+        <label>Mật khẩu</label>
+        @*<input name="Password" type="password" class="form-control" id="Password" placeholder="Mật khẩu ...">*@
+        @Html.TextBoxFor(m => m.Password, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Password)
+      </div>
+      <div class="form-group">
+        <label>Ghi chú</label>
+       @* <textarea name="Notes" type="text" class="form-control" id="Notes" style="resize: none"></textarea>*@
+        @Html.TextAreaFor(m => m.Notes, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Notes)
+      </div>
+
+    </div>
+    <!-- /.box-body -->
+
+    <div class="box-footer">
+      <div class="row">
+        <div class="col-md-6">
+          <button type="submit" class="btn btn-success"><i class="fa fa-save"></i> Lưu dữ liệu</button>
+        </div>
+        <div class="col-md-6 text-right">
+          <a href="~/Employees/Index" class="btn btn-warning">Bỏ qua</a>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+

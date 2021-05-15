@@ -1,0 +1,28 @@
+﻿@model LiteCommerce.DomainModels.ProductEx
+@{ 
+    ViewBag.Title = "Cpa nhap thong tin mat hang";
+}
+
+<fieldset>
+       <legend>Thong tin mat hang</legend>
+    <form>
+        @Html.TextBoxFor(m => m.ProductName, new {@class="form-control" })
+        @*@@Html.DropDownListFor( m => m.CategoryID, SelectListHelper.Categories())*@
+    </form>
+</fieldset>
+
+<fieldset>
+       <legend>
+           Cac thuoc tinh
+       </legend>
+<form>
+
+</form>
+</fieldset>
+
+<fieldset>
+       <legend>Danh sach anh</legend>
+<form>
+
+</form>
+</fieldset>

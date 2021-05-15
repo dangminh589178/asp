@@ -1,0 +1,153 @@
+@model LiteCommerce.DomainModels.Product
+@{
+
+}
+<form method="post" action="~/Product/Save">
+  <!--Hien thi toan bo loi cua giao dien-->
+  @*  <div class="form-group">
+      @Html.ValidationSummary()
+    </div>*@
+  <!--m co the thay the (m co nghia la model)-->
+  @Html.HiddenFor(m => m.ProductID)
+  @*<input type="hidden" name="SupplierID" value="@Model.SupplierID"/>*@
+  <div class="form-group">
+    <label>Tên Sản Phẩm:</label>
+    @*<input type="text" class="form-control" name="SupplierName" id="SupplierName" autofocus value="@Model.SupplierName">*@
+    <!--trong truong hop co them thuoc tinh. acong tenthuoctinh = "giatri" -->
+    @Html.TextBoxFor(m => m.ProductName, new { @class = "form-control", @autofocus = "autofocus" })
+    @Html.ValidationMessageFor(m => m.ProductName)
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label>Đơn Vị Tính:</label>
+        @*<input type="text" class="form-control" name="ContactName" id="ContactName" value="@Model.ContactName">*@
+        @Html.TextBoxFor(m => m.Unit, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Unit)
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label>Giá Hàng:</label>
+        @*<input type="text" class="form-control" name="Address" id="Address" value="@Model.Address">*@
+        @Html.TextBoxFor(m => m.Price, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Price)
+      </div>
+    </div>
+  </div>
+
+  
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label>Nhà Cung Cấp:</label>
+        @Html.DropDownListFor(m => m.SupplierID, SelectListHelper.Suppliers(), new { @class = "form-control" })
+        @*   <select class="form-control" name="Country" id="Country">
+            @foreach (var item in SelectListHelper.Countries())
+            {
+              if (Model.Country == item.Value)
+              {
+                <option value="@item.Value" selected>@item.Text</option>
+              }
+              else
+              {
+                <option value="@item.Value">@item.Text</option>
+              }
+
+            }
+
+          </select>*@
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label>Danh Mục Hàng:</label>
+        @Html.DropDownListFor(m => m.CategoryID, SelectListHelper.Categories(), new { @class = "form-control" })
+        @* <select class="form-control" name="City" id="City">
+            @foreach (var item in SelectListHelper.Cities())
+            {
+              if (Model.City == item.Value)
+              {
+                <option value="@item.Value" selected>@item.Text</option>
+              }
+              else
+              {
+                <option value="@item.Value" >@item.Text</option>
+              }
+            }
+          </select>*@
+      </div>
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div class="col-md-6">
+      <div style="display:block;">
+        <label for="exampleInputFile">Photo</label>
+        <div class="input-group">
+          <div style="height:180px;width:220px;padding:0 50px">
+            <img id="pictureUpload" src="@Model.Photo" alt="Product Images" style="height:180px;width:120px;" />
+          </div>
+        </div>
+      </div>
+      <div class="form-inline" style="margin:3px 0;">
+        <input type="text" name="Photo" id="Photo" class="form-control" style="display:inline-block; width:220px" value="@Model.Photo" />
+
+        <input type="file" name="FileUpload" id="FileUpload" accept="image/*" style="display:none" />
+        <input type="button" id="btnUpload" value="..." class="btn btn-primary" />
+        @Html.ValidationMessageFor(m => m.Photo)
+      </div>
+    </div>
+
+    @section Upload
+                        {
+      <script>$(function () {
+              $('#btnUpload').click(function () {
+                $('#FileUpload').trigger('click');
+              });
+              // Bat su kien khi thay doi du lieu cua fileupload
+              $('#FileUpload').change(function () {
+                //Kiem tra trinh duyet co ho tro formdata hay khong
+                if (window.FormData !== undefined) {
+                  //Lay du lieu tren fileupload
+                  var fileUpload = $('#FileUpload').get(0);
+                  var files = fileUpload.files;
+                  //tao doi tuong form data
+                  var formData = new FormData();
+                  formData.append('file', files[0]);
+                  $.ajax({
+                    type: 'POST',
+                    url: '/Product/ProcessUpload',
+                    contentType: false, // khong co header
+                    processData: false, //khong xu ly du lieu
+                    data: formData,
+                    success: function (urlImage) {
+                      $('#pictureUpload').attr('src', urlImage);
+                      $('#Photo').val(urlImage);
+                    },
+                    error: function (err) {
+                      alert('Co loi xay ra' + err.statusText);
+                    }
+                  });
+                }
+              })
+            });</script>
+    }
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <button type="submit" class="btn btn-primary">
+        <i class="fa fa-save"></i> Lưu dữ liệu
+      </button>
+    </div>
+    <div class="col-md-6 text-right">
+      <a href="~/Product/Index" class="btn btn-warning">
+        <i class="fa fa-window-close"></i> Bỏ qua
+      </a>
+    </div>
+  </div>
+</form>
+

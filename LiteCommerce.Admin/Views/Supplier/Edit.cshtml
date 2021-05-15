@@ -1,0 +1,103 @@
+@model LiteCommerce.DomainModels.Supplier
+@{
+
+}
+
+<form method="post" action="~/Supplier/Save">
+<!--Hien thi toan bo loi cua giao dien-->
+@*  <div class="form-group">
+    @Html.ValidationSummary()
+  </div>*@
+  <!--m co the thay the (m co nghia la model)-->
+  @Html.HiddenFor(m => m.SupplierID)
+  @*<input type="hidden" name="SupplierID" value="@Model.SupplierID"/>*@
+  <div class="form-group">
+    <label>Tên nhà cung cấp:</label>
+    @*<input type="text" class="form-control" name="SupplierName" id="SupplierName" autofocus value="@Model.SupplierName">*@
+    <!--trong truong hop co them thuoc tinh. acong tenthuoctinh = "giatri" -->
+    @Html.TextBoxFor(m => m.SupplierName, new { @class = "form-control", @autofocus = "autofocus" })
+    @Html.ValidationMessageFor(m => m.SupplierName)
+  </div>
+  <div class="form-group">
+    <label>Tên giao dịch:</label>
+    @*<input type="text" class="form-control" name="ContactName" id="ContactName" value="@Model.ContactName">*@
+    @Html.TextBoxFor(m => m.ContactName, new { @class = "form-control" })
+    @Html.ValidationMessageFor(m => m.ContactName)
+  </div>
+  <div class="form-group">
+    <label>Địa chỉ liên hệ:</label>
+    @*<input type="text" class="form-control" name="Address" id="Address" value="@Model.Address">*@
+    @Html.TextBoxFor(m => m.Address, new { @class = "form-control" })
+    @Html.ValidationMessageFor(m => m.Address)
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label>Quốc gia:</label>
+        @Html.DropDownListFor(m => m.Country, SelectListHelper.Countries(), new {@class = "form-control"})
+     @*   <select class="form-control" name="Country" id="Country">
+          @foreach (var item in SelectListHelper.Countries())
+          {
+            if (Model.Country == item.Value)
+            {
+              <option value="@item.Value" selected>@item.Text</option>
+            }
+            else
+            {
+              <option value="@item.Value">@item.Text</option>
+            }
+
+          }
+
+        </select>*@
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label>Thành phố:</label>
+        @Html.DropDownListFor(m => m.City, SelectListHelper.Cities(), new {@class = "form-control" })
+       @* <select class="form-control" name="City" id="City">
+          @foreach (var item in SelectListHelper.Cities())
+          {
+            if (Model.City == item.Value)
+            {
+              <option value="@item.Value" selected>@item.Text</option>
+            }
+            else
+            {
+              <option value="@item.Value" >@item.Text</option>
+            }
+          }
+        </select>*@
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label>Mã bưu chính:</label>
+        @*<input type="text" class="form-control" name="PostalCode" id="PostalCode">*@
+        @Html.TextBoxFor(m => m.PostalCode, new { @class = "form-control" })
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label>Điện thoại:</label>
+        @*<input type="text" class="form-control" name="Phone" id="Phone">*@
+        @Html.TextBoxFor(m => m.Phone, new { @class = "form-control" })
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <button type="submit" class="btn btn-primary">
+        <i class="fa fa-save"></i> Lưu dữ liệu
+      </button>
+    </div>
+    <div class="col-md-6 text-right">
+      <a href="~/Supplier/Index" class="btn btn-warning">
+        <i class="fa fa-window-close"></i> Bỏ qua
+      </a>
+    </div>
+  </div>
+</form>

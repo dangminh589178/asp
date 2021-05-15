@@ -1,0 +1,128 @@
+@model LiteCommerce.Admin.Models.CategoryPaginationQueryResult
+@{
+    Layout = null;
+}
+
+<!--danh sách loại sản phẩm -->
+
+  <div class="text-left">
+    <p>Có tất cả <strong>@Model.RowCount</strong> loại hàng. Bạn đang ở trang <strong>@Model.Page</strong> trên tổng số <strong>@Model.PageCount</strong> trang.</p>
+  </div>
+  <table class="table table-hover table-bordered">
+    <thead>
+      <tr class="success">
+        <th>Tên loại</th>
+        <th>Mô tả</th>
+        <th class="text-right">
+          <a href="@Url.Action("Add","Categories")" class="btn btn-sm btn-info" data-toggle="modal" data-target="#addCategory">
+            <i class="fa fa-plus"></i> Thêm mới
+          </a>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      @foreach (var item in Model.Data)
+      {
+<tr>
+  <td>@item.CategoryName</td>
+  <td>@item.Description</td>
+  <td class="text-right">
+    <a href="#" class="btn btn-sm btn-success" data-toggle="modal" data-target="#exampleModal" onclick="Edit(@item.CategoryID)" data-id="@item.CategoryID">
+      <i class="fa fa-edit"></i>
+    </a>
+    <a href="#" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#exampleModal" onclick="confirmDelete(@item.CategoryID)" data-id="@item.CategoryID">
+      <i class="fa fa-trash"></i>
+    </a>
+  </td>
+</tr>      }
+    </tbody>
+  </table>
+@*phan trang*@
+  <div class="text-center">
+    <ul class="pagination">
+      @for (int page = 1; page <= Model.PageCount; page++)
+      {
+        if (page == Model.Page)
+        {
+          <li class="active"><a href="javascript:;">@page</a></li>
+        }
+        else
+        {
+          <li><a href="javascript:;" onclick="getCategories(@page)">@page</a></li>
+        }
+      }
+    </ul>
+  </div>
+
+<!-- Modal Add Category -->
+<div class="modal fade" id="addCategory">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+
+    </div>
+  </div>
+</div>
+<!-- end Modal Add Category -->
+<!-- Modal Edit-->
+<div id="EditModal" class="modal fade">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-body" id="ModalBodyEdit">
+
+      </div>
+    </div>
+
+  </div>
+</div>
+<!--End of Modal Edit-->
+<!-- Xác nhận xóa loại sản phẩm -->
+<!-- Modal Delete -->
+<div id="deleteModal" class="modal fade">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title text-center">Xác nhận xóa Loại mặt hàng</h4>
+      </div>
+      <div class="modal-body" id="ModalBodyDelete">
+
+      </div>
+    </div>
+
+  </div>
+</div>
+<!-- End Modal Delete -->
+<!-- Sử dụng ajax để Get dữ liệu lên model -->
+
+<script>
+  var Edit = function (id) {
+    $.ajax({
+      type: "POST",
+      url: "/Categories/Edit",
+      data: { id: id },
+      success: function (response) {
+
+        $("#ModalBodyEdit").html(response);
+        $("#EditModal").modal("show");
+      }
+    })
+  }
+
+  var confirmDelete = function (id) {
+    $.ajax({
+      type: "GET",
+      url: "/Categories/Delete",
+      data: { id: id },
+      success: function (response) {
+
+        $("#ModalBodyDelete").html(response);
+        $("#deleteModal").modal("show");
+      }
+    })
+  }
+</script>
+

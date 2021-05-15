@@ -1,0 +1,54 @@
+@model LiteCommerce.DomainModels.Customer
+@{
+  ViewBag.Title = "Xác Nhận Xóa khách hàng";
+}
+<div class="box box-primary">
+  <!-- form start -->
+  <form class="form-horizontal" method="post" action="~/Customers/Delete/@Model.CustomerID">
+    <div class="box-body">
+      <div class="form-group">
+        @Html.HiddenFor(m => m.CustomerID)
+        <label class="control-label col-sm-2">Tên Khách hàng:</label>
+        <div class="col-sm-10">
+          <p class="form-control-static">@Model.CustomerName</p>
+        </div>
+        <label class="control-label col-sm-2">Tên giao dịch:</label>
+        <div class="col-sm-10">
+          <p class="form-control-static">@Model.ContactName</p>
+        </div>
+        <label class="control-label col-sm-2">Địa chỉ liên hệ:</label>
+        <div class="col-sm-10">
+          <p class="form-control-static">@Model.Address</p>
+        </div>
+        <label class="control-label col-sm-2">Quốc gia:</label>
+        <div class="col-sm-4">
+          <p class="form-control-static">@Model.Country</p>
+        </div>
+        <label class="control-label col-sm-2">Thành phố:</label>
+        <div class="col-sm-4">
+          <p class="form-control-static">@Model.City</p>
+        </div>
+        <label class="control-label col-sm-2">Mã Vùng:</label>
+        <div class="col-sm-4">
+          <p class="form-control-static">@Model.PostalCode</p>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="box-footer">
+      <div class="row">
+        <div class="col-lg-offset-2 col-sm-10">
+          <p class="text-danger">Bạn có chắc muốn xóa khách hàng này?</p>
+        </div>
+        <div class="col-lg-offset-2 col-sm-10">
+          <button type="submit" class="btn btn-danger"><i class="fa fa-remove"></i> Đồng ý</button>
+          <a href="~/Customers/Index" class="btn btn-warning">Bỏ qua</a>
+        </div>
+      </div>
+    </div>
+    <!-- /.box-body -->
+  </form>
+  
+</div>
+

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>LiteCommerce</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-2/css/all.min.css">
+  <!-- Bootstrap 3.3.7 -->
+  <link rel="stylesheet" href="~/Themes/bower_components/bootstrap/dist/css/bootstrap.min.css">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="~/Themes/bower_components/font-awesome/css/font-awesome.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="~/Themes/bower_components/Ionicons/css/ionicons.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="~/Themes/dist/css/AdminLTE.min.css">
+  <!-- AdminLTE Skins. Choose a skin from the css/skins
+       folder instead of downloading all of them to reduce the load. -->
+  <link rel="stylesheet" href="~/Themes/dist/css/skins/_all-skins.min.css">
+  <!-- Morris chart -->
+  <link rel="stylesheet" href="~/Themes/bower_components/morris.js/morris.css">
+  <!-- jvectormap -->
+  <link rel="stylesheet" href="~/Themes/bower_components/jvectormap/jquery-jvectormap.css">
+  <!-- Date Picker -->
+  <link rel="stylesheet" href="~/Themes/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
+  <!-- Daterange picker -->
+  <link rel="stylesheet" href="~/Themes/bower_components/bootstrap-daterangepicker/daterangepicker.css">
+  <!-- bootstrap wysihtml5 - text editor -->
+  <link rel="stylesheet" href="~/Themes/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
+
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+  <![endif]-->
+  <!-- Google Font -->
+  @*<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">*@
+
+  <!--phan thu lam-->
+  <!-- Phan Phan Trang-->
+
+  <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
+  <!-- JS tạo nút bấm di chuyển trang start -->
+  <script src="http://1892.yn.lt/blogger/JQuery/Pagging/js/jquery.twbsPagination.js" type="text/javascript"></script>
+  <!-- JS tạo nút bấm di chuyển trang end -->
+  <script type="text/javascript">
+    $(function () {
+      var pageSize = 4; // Hiển thị 4 sản phẩm trên 1 trang
+      showPage = function (page) {
+        $(".contentPage").hide();
+        $(".contentPage").each(function (n) {
+          if (n >= pageSize * (page - 1) && n < pageSize * page)
+            $(this).show();
+        });
+      }
+      showPage(1);
+      ///** Cần truyền giá trị vào đây **///
+      var totalRows = 40; // Tổng số sản phẩm hiển thị
+      var btnPage = 3; // Số nút bấm hiển thị di chuyển trang
+      var iTotalPages = Math.ceil(totalRows / pageSize);
+
+      var obj = $('#pagination').twbsPagination({
+        totalPages: iTotalPages,
+        visiblePages: btnPage,
+        onPageClick: function (event, page) {
+          console.info(page);
+          showPage(page);
+        }
+      });
+      console.info(obj.data());
+    });
+  </script>
+  <style>
+    // /** CSS căn id pagination ra giữa màn hình **/ //
+    #pagination {
+      display: flex;
+      display: -webkit-flex; /* Safari 8 */
+      flex-wrap: wrap;
+      -webkit-flex-wrap: wrap; /* Safari 8 */
+      justify-content: center;
+      -webkit-justify-content: center;
+    }
+  </style>
+
+  <!--  Ket Thuc Phan Phan Trang-->
+  <!--het phan thu lam-->
+</head>
+<body class="hold-transition skin-blue sidebar-mini">
+  <div class="wrapper">
+
+    <!-- Header -->
+    @{ Html.RenderPartial("_Header");}
+    <!-- Left side column. contains the logo and sidebar -->
+    @{ Html.RenderPartial("_Sidebar");}
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+      <!-- Content Header (Page header) -->
+      <section class="content-header">
+        <h1>
+          @ViewBag.Title
+        </h1>
+      </section>
+
+      <!-- Main content -->
+      <section class="content">
+        @RenderBody()
+      </section>
+      <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+    <!--Footer-->
+    @{ Html.RenderPartial("_Footer");}
+
+    <!-- Control Sidebar -->
+    @*@{ Html.RenderPartial("_Controlsidebar");}*@
+    <!-- /.control-sidebar -->
+
+
+  </div>
+  <!-- ./wrapper -->
+  <!-- jQuery 3 -->
+  <script src="~/Themes/bower_components/jquery/dist/jquery.min.js"></script>
+  <!-- jQuery UI 1.11.4 -->
+  <script src="~/Themes/bower_components/jquery-ui/jquery-ui.min.js"></script>
+  <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+  <script>$.widget.bridge('uibutton', $.ui.button);</script>
+  <!-- Bootstrap 3.3.7 -->
+  <script src="~/Themes/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+  <!-- Morris.js charts -->
+  <script src="~/Themes/bower_components/raphael/raphael.min.js"></script>
+  <script src="~/Themes/bower_components/morris.js/morris.min.js"></script>
+  <!-- Sparkline -->
+  <script src="~/Themes/bower_components/jquery-sparkline/dist/jquery.sparkline.min.js"></script>
+  <!-- jvectormap -->
+  <script src="~/Themes/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js"></script>
+  <script src="~/Themes/plugins/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
+  <!-- jQuery Knob Chart -->
+  <script src="~/Themes/bower_components/jquery-knob/dist/jquery.knob.min.js"></script>
+  <!-- daterangepicker -->
+  <script src="~/Themes/bower_components/moment/min/moment.min.js"></script>
+  <script src="~/Themes/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
+  <!-- datepicker -->
+  <script src="~/Themes/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+  <!-- Bootstrap WYSIHTML5 -->
+  <script src="~/Themes/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
+  <!-- Slimscroll -->
+  <script src="~/Themes/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+  <!-- FastClick -->
+  <script src="~/Themes/bower_components/fastclick/lib/fastclick.js"></script>
+  <!-- AdminLTE App -->
+  <script src="~/Themes/dist/js/adminlte.min.js"></script>
+  <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+  <script src="~/Themes/dist/js/pages/dashboard.js"></script>
+  <!-- AdminLTE for demo purposes -->
+  <script src="~/Themes/dist/js/demo.js"></script>
+  <script>
+    $(document).ready(function () {
+      $('.sidebar-menu').tree()
+    })
+  </script>
+  <!--dung js de upload anh-->
+  @RenderSection("Upload", required: false)
+
+  @RenderSection("Showpass", required: false)
+
+  <!--dung ajax de lay du lieu len list product-->
+  @RenderSection("scripts", required: false)
+
+</body>
+</html>

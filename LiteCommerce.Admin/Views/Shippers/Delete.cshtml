@@ -1,0 +1,22 @@
+@model LiteCommerce.DomainModels.Shipper
+<form class="form-horizontal" method="post" action="~/Shippers/Delete/@Model.ShipperID">
+  <div class="form-group">
+    <label class="control-label col-xs-4">Tên nhà vận chuyển:</label>
+    <div class="col-xs-8">
+      <p class="form-control-static">@Model.ShipperName</p>
+    </div>
+    <label class="control-label col-xs-4">Số điện thoại:</label>
+    <div class="col-xs-8">
+      <p class="form-control-static">@Model.Phone</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-offset-4 col-sm-8">
+      <p class="text-danger">Bạn có chắc muốn xóa nhà vận chuyển <b>@Model.ShipperName</b>?</p>
+    </div>
+    <div class="col-lg-offset-4 col-sm-8">
+      <button type="submit" class="btn btn-danger"><i class="fa fa-remove"></i> Đồng ý</button>
+      <button type="button" class="btn btn-warning" data-dismiss="modal">Bỏ Qua</button>
+    </div>
+  </div>
+</form>
